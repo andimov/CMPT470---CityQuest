@@ -1,0 +1,52 @@
+{% extends 'cityquest/base.html' %}
+{% load static %}
+    
+<!-- Bootstrap -->
+{% block cssfiles %}
+    <link href="{% static 'cityquest/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'cityquest/css/login.css' %}" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+{% endblock %}
+
+{% block title %}CityQuest{% endblock %}
+
+{% block content %}
+    <div class = "container">
+        <h1>CityQuest</h1>
+
+        <form action="../eventlist" method="get" onSubmit="return validate()">
+            <div id="locationField">
+                <input id="autocomplete" placeholder="Enter a city" type="text" name="location"></input>
+            </div>
+                <select class="form-control" id="categorySelect" name="category" style="width: 500px;margin-right:auto;margin-left:auto;">
+		    <option value="">Click here to select an event category</option>
+                    <option value="Business">Business</option>
+                    <option value="Charity">Charity</option>
+                    <option value="ClassesWorkshops">Classes & Workshops</option>
+                    <option value="Conferences">Conferences</option>
+                    <option value="Festivals">Festivals</option>
+                    <option value="FoodDrinks">Food & Drinks</option>
+                    <option value="MusicConcerts">Music & Concerts</option>
+                    <option value="Networking">Networking</option>
+                    <option value="Nightlife">Nightlife</option>
+                    <option value="PerformingArts">Performing Arts</option>
+                    <option value="ScienceTech">Science & Tech</option>
+                    <option value="Spirituality">Spirituality</option>
+                    <option value="Sports">Sports</option>
+                    <option value="Other">Other</option>
+                </select>
+                <input type="hidden" name="lat" id="latitude" value="">
+                <input type="hidden" name="lon" id="longitude" value="">
+
+            <button type="submit"  id="clickToSubmit" class="btn btn-default btn-success btn-lg"><span class="glyphicon glyphicon-search"></span> Find nearby events</button>
+        </form>
+        
+    </div>
+{% endblock %} 
+
+{% block javascript %}
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
+    <script type="text/javascript" src="{% static 'cityquest/js/home.js' %}"></script>	    
+    
+{% endblock %}
+

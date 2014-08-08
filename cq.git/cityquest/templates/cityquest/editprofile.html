@@ -1,0 +1,35 @@
+{% extends 'cityquest/base.html' %}
+{% load static %}
+
+{% block title %}Edit my Profile{% endblock %}
+
+{% block cssfiles %}
+    <link href="{% static 'cityquest/css/createEvent.css' %}"  rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <article class = "well well-sm">
+        <form action = "/cq/cityquest/editprofile/" method = "POST" enctype="multipart/form-data"> {% csrf_token %}
+            <ul>
+                {% for entry in form %}
+                    <label for = "{{ entry.label }}">{{ entry.label }}: <br>{{ entry }}<br>
+                {% endfor %}
+		
+		{% comment %}
+		<label for = "about_me">About Me: <br>{{ form.about_me }}<br><br>
+		<label for = "ph_number">Phone Number: <br>{{ form.ph_number }}<br><br>
+		<label for = "age">Age: <br>{{ form.age }}<br><br>
+		<label for = "sex">Sex: <br>{{ form.sex }}<br><br>
+		<label for = "location">Home Address: <br>
+                <div id="locationField">
+                    <input id = "location" type = "text" name = "address" onFocus="geolocate()" placeholder="Enter an address"></input>
+                </div>
+		{% endcomment %}
+		
+            </ul>
+            <input class="btn btn-success btn-lg" type="submit" value="Save">
+            <a href="/cq/cityquest/myprofile/" class="btn btn-danger btn-lg active" role="button">Cancel</a>
+        </form>
+    </article>
+{% endblock %}
+

@@ -1,0 +1,21 @@
+{% extends 'cityquest/base.html' %}
+
+{% block title %}Make a Comment{% endblock %}
+
+{% block content %}
+    <article class="well well-sm">
+    <form action = "/cq/cityquest/comment/{{ event.id }}/" method = "POST">{% csrf_token %}
+
+            {% for entry in form %}
+                <h4>Leave A Comment</h4> 
+		<div>
+		{{ entry }}
+		</div>
+            {% endfor %}
+
+        
+	<button type="submit" class="btn btn-success btn-lg">Save</button>    <a role="button" href = "/cq/cityquest/home/" class="btn btn-danger btn-lg">Cancel</a>
+
+    </form>
+    </artcle>
+{% endblock %}

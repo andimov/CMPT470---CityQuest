@@ -1,0 +1,95 @@
+{% extends 'cityquest/base.html' %}
+{% load static %}
+
+{% block cssfiles %}<link href="{% static 'cityquest/css/event.css' %}"  rel="stylesheet">{% endblock %}
+
+{% block title %}{{ event.eventname }}{% endblock %}
+ 
+{% block content %}
+    <ul class="nav nav-tabs" role="tablist" id="myTab">
+        <li class="active"><a href="#Event_Description" role="tab" data-toggle="tab">Event Description</a></li>
+        <li><a href="#Attendees" role="tab" data-toggle="tab">Attendees</a></li>
+        <li><a href="#Discussion" role="tab" data-toggle="tab">Discussion</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane active" id="Event_Description">
+            <article class="well well-sm">
+                <h1>{{ event.eventname }}</h1>
+                <div id="detail-container">
+                    <ul id="eventlist">
+                        {% if event.public %}
+                            <li><strong>Event type:</strong> Public</li>
+                        {% else %}
+                            <li><strong>Event type:</strong> Private</li>
+                        {% endif %}
+                        <li><strong>Host:</strong> {{ owner.username }}</li>
+                        <li><strong>Address:</strong> {{ event.address }}</li>
+			<li><strong>When:</strong> {{ event.datetime }}</li>
+                        <li><strong>Category:</strong> {{ event.get_category_display }}</li>
+                        <li><strong>Price:</strong> ${{ event.price }}</li>
+                        <li><strong>Attending:</strong> {{ event.attendees }}</li>
+                        <li><strong>Description:</strong> {{ event.description }}</li>
+                    </ul>
+                </div>
+
+                {% if user.id == owner.id %}
+                    <a href="/cq/cityquest/edit/{{ event.id }}/{{ event.slug }}/" class="btn btn-primary btn-lg active" role="button">Edit Event</a>
+                {% endif %}
+            </article>
+        </div>
+        
+        <div class="tab-pane" id="Attendees">
+            <article class="well well-sm">
+            <h3>People attending:</h3>
+                {% if user.is_active %}
+                    <ul id="attendees">
+                        {% for attendee in attendees %}
+                            <li>{{ attendee.username.username }}</li>
+                        {% endfor %}
+                    </ul>
+                    <br>
+                    {% if isAttending %}
+                        <form action = "/cq/cityquest/unattend/{{ event.id }}/" method = "POST">{% csrf_token %}
+                            <input type = "submit" class="btn btn-warning btn-lg active" value = "Remove RSVP"/>
+                        </form>
+                    {% else %}
+                        <form action = "/cq/cityquest/attend/{{ event.id }}/" method = "POST">{% csrf_token %}
+                            <input type = "submit" class="btn btn-info btn-lg active" value = "RSVP"/>
+                        </form>
+                    {% endif %}
+
+                {% else %}
+                    <a href="/cq/login" class="btn btn-primary btn-lg active" role="button">Login</a> or
+                    <a href="/cq/register" class="btn btn-primary btn-lg active" role="button">Sign up</a> to see who is attending
+                {% endif %}
+            </article>    
+        </div>
+  
+        <div class="tab-pane" id="Discussion">
+            <article class="well well-sm">
+                <h1>Discussion Board</h1>
+                <p>
+                    <ul>
+                        {% for comment in comments %}
+                            <li>{{ comment.username.username }}: {{ comment.commentbody }}</li>
+                        {% endfor %}
+                    </ul>
+                </p<
+
+                <p>
+                    {% if user.is_active %}
+                        <a href="/cq/cityquest/comment/{{ event.id }}/" class="btn btn-primary btn-lg active" role="button">Add a comment</a>
+                    {% else %}
+                        <a href="/cq/login" class="btn btn-primary btn-lg active" role="button">Login</a> or
+                        <a href="/cq/register" class="btn btn-primary btn-lg active" role="button">Sign up</a> to participate in the group discussion
+                    {% endif %}
+                </p>
+            </article>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+{#    <script type="text/javascript" src="{% static 'cityquest/js/attend.js' %}"></script>#}
+{% endblock %}

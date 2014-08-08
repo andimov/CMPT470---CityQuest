@@ -1,0 +1,77 @@
+{% extends 'cityquest/base.html' %}
+{% load static %}
+{% load event_extras %}
+
+{% block cssfiles %}
+    <link href="{% static 'cityquest/css/eventlist.css' %}"  rel="stylesheet">
+{% endblock %}
+
+{% block title %}Eventlist{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-2 column" style="padding-left: 0;">
+            <div class="search panel panel-default">
+	        <form action="../eventlist" method="get" onSubmit="return validate()">
+                    <div id="locationField">
+                	<input id="autocomplete" placeholder="Enter a city" type="text" name="location"></input>
+                    </div>
+                    <select class="form-control" id="categorySelect"  name="category">
+	  	    <option value="">Please select a category</option>
+                    <option value="Business">Business</option>
+                    <option value="Charity">Charity</option>
+                    <option value="ClassesWorkshops">Classes & Workshops</option>
+                    <option value="Conferences">Conferences</option>
+                    <option value="Festivals">Festivals</option>
+                    <option value="FoodDrinks">Food & Drinks</option>
+                    <option value="MusicConcerts">Music & Concerts</option>
+                    <option value="Networking">Networking</option>
+                    <option value="Nightlife">Nightlife</option>
+                    <option value="PerformingArts">Performing Arts</option>
+                    <option value="ScienceTech">Science & Tech</option>
+                    <option value="Spirituality">Spirituality</option>
+                    <option value="Sports">Sports</option>
+                    <option value="Other">Other</option>
+                    </select>
+                    <input type="hidden" name="lat" id="latitude" value="">
+                    <input type="hidden" name="lon" id="longitude" value="">
+            	    <button type="submit" id="searchButton" class="btn btn-default btn-success"><span class="glyphicon glyphicon-search"></span> Search again</button>
+        	 </form>
+            </div>
+	    <div id="eventlist">
+            {% if not events %}
+                <p>Sorry your search did not return any results</p>
+            {% endif %}	  
+
+            {% for distance in distances %}
+                {% with event=events|get_item:distance %}
+                    <div class="event panel panel-default">
+                        <div class="panel-body">
+			    <h4>{{ event.eventname }}</h4>
+		            <li class = "addr">Address: {{ event.address }}</li>
+                            <li>Date: {{ event.datetime }}</li>
+		            <li>Price: ${{ event.price }}</li>
+			    <li class = "eventID">Event ID: {{event.id}}</li>
+		            <li>Distance: <span class="distance">{{ distance }}</span> km</li>
+		            <button class="btn btn-primary zoom">Find on Map</button> <a role="button"class="btn btn-primary" href = "/cq/cityquest/event/{{ event.id }}/{{ event.slug }}">Details</a>
+     	                </div>
+  	            </div>
+                {% endwith %}
+            {% endfor %}
+	    </div>
+        </div>
+        
+        <div class="col-md-6 column">
+		    <div id="map-canvas" style="width: 100%"></div>
+        </div>
+	    <div class="col-md-2"></div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="{% static 'cityquest/js/eventlist.js' %}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
+{% endblock  %}

@@ -1,0 +1,14 @@
+CMPT 470 web application : CityQuest
+
+Team 7:
+    Adrian Dorrius
+    Ian Fong
+    Gavin Wong
+    Jonathan Lee
+    
+Django Version: 1.6.5
+Python Version: 2.7.6
+
+CityQuest is an application that gathers nearby events for the user to view and attend.    
+
+Team commit history/development was done through GitLab

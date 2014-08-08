@@ -1,0 +1,12 @@
+{% extends "cityquest/base.html" %}
+{% block title %}Create an account{% endblock %} 
+
+{% block content %}
+    <article class="well well-sm">
+        <h1>Register</h1>
+        <form action = "/cq/register/" method = "post">{% csrf_token %}
+            {{form.as_p}}
+            <input class="btn btn-success btn-lg" type="submit" value="Start your Quest!">
+        </form>
+    </article>
+{% endblock %}

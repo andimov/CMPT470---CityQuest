@@ -1,0 +1,42 @@
+{% extends 'cityquest/base.html' %}
+
+{% block title %}Create an Event{% endblock %}
+{% block content %}
+    <form action = "/cq/cityquest/create/" method = "POST">{% csrf_token %}
+        <label for = "eventname">Event name: </label>
+        
+<input id = "eventname" type = "text" name = "eventname">
+        <br>
+        <label for = "address">Address: </label>
+        <input id = "address" type = "text" name = "address">
+        <br>
+        <label for = "city">City: </label>
+        <input id = "city" type = "text" name = "city">
+        <br>
+        <label for = "state_province">State/Province: </label>
+        <input id = "state_province" type = "text" name = "state_province">
+        <br>
+        <label for = "country">Country: </label>
+        <input id = "country" type = "text" name = "country">
+        <br>
+        <label for = "category">Category: </label>
+        <input id = "category" type = "text" name = "category">
+        <br>
+        <label for = "price">Price: </label>
+        <input id = "price" type = "text" name = "price">
+        <br>
+        <label for = "datetime">Date and time: </label>
+        <input id = "datetime" type = "datetime" name = "datetime">
+        <br>
+        <label for = "description">Description: </label>
+        <br>
+        <textarea id = "description" type = "text" name = "description" rows = 8 cols = 69></textarea>
+        <br>
+        <label for = "public">Public: </label>
+        <input id = "public" type = "checkbox" name = "public">
+        <br>
+
+        <input type = "submit" value = "Create Event"/>
+    </form>
+    <a href = "/cq/cityquest/home/">Cancel</a>
+{% endblock %}

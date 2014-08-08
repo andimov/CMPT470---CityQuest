@@ -1,0 +1,74 @@
+{% extends 'cityquest/base.html' %}
+{% load static %}
+{% load event_extras %}
+{% block cssfiles %}<link href="{% static 'cityquest/css/eventlist.css' %}"  rel="stylesheet">{% endblock %}
+
+{% block content %}
+	  <div class="row">
+	  <div class="col-md-2">
+	  </div>
+	  <div class="col-md-2" id="eventlist" style="padding-left: 0;">
+	        <h2>Filter your events</h2>
+                <div class="input-group">
+                        <input type="text" class="form-control">
+                        <span class="input-group-btn">
+                                <button class="btn btn-default" type"button">Search</button>
+                        </span>
+                        <span class="input-group-addon">
+                                <input type="checkbox">Option 1
+                        </span>
+                        <span class="input-group-addon">
+                                <input type="checkbox">Option 2
+                        </span>
+                </div>
+
+	  {% if not events %}
+		<p>Sorry your search did not return any results</p>
+	  {% endif %}	  
+	  {% for distance in distances %}
+	      {% with event=events|get_item:distance %}
+			
+			<div class="event panel panel-default">
+			     <div class="panel-body">
+				{% comment %}
+                                <h4>{{event.eventname}}</h4>
+                                {% endcomment %}
+                                <a href = "/cq/cityquest/event/{{ event.id }}/{{ event.slug }}">{{ event.eventname }}</a>
+				<li>Owner: {{event.owner.username}}</li>
+				<li class = "addr">{{event.address}}</li>
+				<li>Category: {{event.category}}</li>
+				<li>Price: {{event.price}}</li>
+				<li>Date: {{event.datetime}}</li>
+				<li>Description: {{event.description}}</li>
+				<li>Public? {{event.public}}</li>
+				<li>Number of Attendees: {{event.attendees}}</li>
+				<li class = "eventID">{{event.id}}</li>
+                                <li>the slugZzzz: {{ event.slug }}</li>
+				<li>Distance:{{distance}} </li>
+				<input type ="button" value="Find on map" class="zoom">
+			    </div>
+			</div>
+		{% endwith %}
+	  {% endfor %}
+	  </div>
+	  <div class="col-md-6">
+		<h2>Map</h2>
+		{% comment %}
+   		 <div id="panel">
+     			 <input id="address" type="textbox" value="Vancouver">
+     			 <input type="button" value="Geocode" onclick="">
+   		 </div>
+		{% endcomment %}
+		 <div id="map-canvas" style="width: 100%"></div>
+	  </div>
+	  <div class="col-md-2">
+`	  </div>
+
+	  </div>
+	
+{% endblock %}
+
+{% block javascript  %}
+<script type="text/javascript" src="{% static 'cityquest/js/eventlist.js' %}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+{% endblock  %}

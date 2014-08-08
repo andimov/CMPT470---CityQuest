@@ -1,0 +1,10 @@
+body{
+  background-color: #3FA9F5;
+}
+
+article{
+    margin-top: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}

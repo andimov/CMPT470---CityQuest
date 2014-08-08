@@ -1,0 +1,62 @@
+{% extends 'cityquest/base.html' %}
+{% load static %}
+
+{% block cssfiles %}
+    <link rel="stylesheet" href="{% static 'cityquest/css/jquery.e-calendar.css' %}"/>
+    <link rel="stylesheet" href="{% static 'cityquest/css/myprofile.css' %}"/>
+{% endblock %}
+
+{% block title %}{{ user.username }}{% endblock %}
+
+{% block content %}
+    <ul class="nav nav-tabs" role="tablist" id="myTab">
+        <li class="active"><a href="#profile" role="tab" data-toggle="tab">Profile</a></li>
+        <li><a href="#myevents" role="tab" data-toggle="tab">My Events</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane active" id="profile">
+            <article class="well well-sm">
+            <h1>Hi, {{ user.username }}!</h1>
+                <ul id="aboutprof">
+                    <li><strong> About me:</strong> {{ user.about_me }}</li>
+                    <li><strong> Phone number:</strong> {{ user.ph_number }}</li>
+                    <li><strong> Location:</strong> {{ user.location }} </li>
+                    <li><strong> Sex:</strong> {{ user.get_sex_display }} </li>
+                </ul>
+                <a href="/cq/cityquest/editprofile/" class="btn btn-primary btn-lg active" role="button">Edit my profile</a>
+            </article>
+        </div>
+      
+        <div class="tab-pane" id="myevents">
+            <br>
+            <article class="well well-sm">
+		<div id="calendar"></div>
+                <h4>My Quests:</h4>
+                <ul>
+                    {% for event in myevents %}
+                        <li><a href = "/cq/cityquest/event/{{ event.eventname.id }}/{{ event.eventname.slug }}/">{{ event.eventname.eventname }}</a></li>
+                    {% endfor %}
+                </ul>
+            </article>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="{% static 'cityquest/js/jquery-1.11.0.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'cityquest/js/jquery.e-calendar.js' %}"></script>
+    <script type="text/javascript" src="{% static 'cityquest/js/myprofile.js' %}"></script>
+    
+    <script>
+        var eventList = [];
+        {% for event in myevents %}
+            var eventItem = {title: "{{ event.eventname.eventname }}", description: "", datetime: new Date({{event.eventname.datetime|date:"Y,n,j,H"}})};
+            eventList.push(eventItem);
+        {% endfor %}
+
+        $('#calendar').eCalendar({
+            events: eventList
+        });
+    </script>
+{% endblock %}

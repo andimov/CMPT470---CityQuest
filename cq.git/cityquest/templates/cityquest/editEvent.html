@@ -1,0 +1,60 @@
+{% extends 'cityquest/base.html' %}
+{% load static %}
+
+{% block title %}Edit Event{% endblock %}
+
+{% block cssfiles %}
+    <link href="{% static 'cityquest/css/bootstrap-datetimepicker.min.css' %}"  rel="stylesheet">
+    <link href="{% static 'cityquest/css/createEvent.css' %}"  rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <article class = "well well-sm">
+        <form action = "/cq/cityquest/edit/{{ event.id }}/{{ event.slug }}/" method = "POST" onSubmit="return validate()">{% csrf_token %}
+            <label for = "eventname">Event Name: </label>
+            <br>
+            {{ form.eventname }}
+            <br>
+
+            <label for = "address">Address: </label>
+            <div id="locationField">
+            <input id = "address" type = "text" name = "address" onFocus="geolocate()" value="{{ event.address }}"></input>
+            </div>
+
+            <label for = "datetime">Date and time: </label>
+            <div id="datetimepicker1" class="input-append date">
+                <input data-format="yyyy-MM-dd hh:mm:ss" type="text" id = "datetime" name = "datetime" value = "{{ event.datetime|date:"Y-m-d H:i:s" }}"</input>
+                <span class="add-on">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+
+            <label for = "category">Category: </label>
+            <br>
+            {{ form.category }}
+            <br>
+            <label for = "price">Price: </label>
+            <br>
+            {{ form.price }}
+            <br>
+            <label for = "description">Description: </label>
+            <br>
+            {{ form.description }}
+            <br>
+            {{ form.public.label }}: {{ form.public }}
+            <br>
+		    
+            <input type="hidden" name="latitude" id="latitude" value="{{ event.latitude  }}">
+            <input type="hidden" name="longitude" id="longitude" value="{{ event.longitude }}">    
+       
+            <input class="btn btn-success btn-lg" type="submit" value="Save">
+            <a href="/cq/cityquest/event/{{ event.id }}/{{ event.slug }}/" class="btn btn-danger btn-lg active" role="button">Cancel</a>
+        </form>
+    </article>
+{% endblock %}
+
+{% block javascript %}
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
+    <script type="text/javascript" src="{% static 'cityquest/js/editEvent.js' %}"></script>
+    <script type="text/javascript" src="{% static 'cityquest/js/bootstrap-datetimepicker.min.js' %}"></script>
+{% endblock %}

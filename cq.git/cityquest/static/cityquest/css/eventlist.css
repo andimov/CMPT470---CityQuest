@@ -1,0 +1,56 @@
+.event{
+  cursor: pointer;
+  margin-bottom: 0px;
+}
+.selected{
+  background-color: #C0C0C0; 
+}
+
+html, body{
+  height: 100%;
+}
+
+#map-canvas {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  display: block;
+  z-index: 1000;
+}
+
+#eventlist {
+  overflow-y: scroll;
+  height: 85%;
+  background-color: white;
+}
+
+.row .column{
+ height: inherit;
+ padding-left: 0px;
+ padding-right: 0px;
+ border: solid;
+}
+
+.row {
+  height: 800px;
+}
+
+.search{
+  height: 15%;
+  background-color: #C0C0C0;
+  margin-bottom: 0px;
+}
+
+#autocomplete {
+  width: 100%;
+}
+
+#searchButton{
+  display: block;
+  margin-right: 0;
+  float: right;
+}
+
+.eventID{
+  display:none;
+}

@@ -1,0 +1,59 @@
+h1{
+	text-align: center;
+}
+
+.container{
+	color: white;
+}
+
+.container > h1{
+	font-size: 500%;
+	text-shadow: 2px 2px black;
+}
+
+html, body{
+	height: 100%;
+}
+
+body{
+	background: url('../img/Van.jpg') no-repeat center center;
+	background-size: cover;
+}
+
+#multi{
+	width: 300px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.btn.btn-lg{
+	display:block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 5%;
+}
+
+
+#locationField, #controls {
+	position: relative;
+	width: 500px;
+}
+
+#autocomplete {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	color: black;
+	text-align: center;
+}
+
+#locationField {
+	height: 30px;
+	margin-bottom: 2%;
+	display: block;
+	margin-right:auto;
+	margin-left: auto;
+	line-height: 30px;
+}
+

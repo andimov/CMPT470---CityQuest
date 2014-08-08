@@ -1,0 +1,17 @@
+{% extends "cityquest/base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+    <article class="well well-sm">
+        <h1>Login</h1>
+        {% if form.errors %}
+            <p class = "error">This is not a valid username or password</p>
+        {% endif %}
+
+        <form method = "post" action = "">{% csrf_token %}
+            {{ form.as_p }}
+            <input class="btn btn-success btn-lg" type="submit" value="Login">
+        </form>
+    </article>   
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'cityquest/base.html' %}
+
+{% block content %}
+    <ul class="nav nav-tabs" role="tablist" id="myTab">
+      <li class="active"><a href="#home" role="tab" data-toggle="tab">Home</a></li>
+      <li><a href="#profile" role="tab" data-toggle="tab">Profile</a></li>
+      <li><a href="#messages" role="tab" data-toggle="tab">Messages</a></li>
+      <li><a href="#settings" role="tab" data-toggle="tab">Settings</a></li>
+    </ul>
+
+    <div class="tab-content">
+      <div class="tab-pane active" id="home">
+        Hello {{ user.username }}!
+      </div>
+      <div class="tab-pane" id="profile">...2</div>
+      <div class="tab-pane" id="messages">...3</div>
+      <div class="tab-pane" id="settings">...4</div>
+    </div>
+{% endblock %}
